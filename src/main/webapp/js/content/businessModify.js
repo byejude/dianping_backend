@@ -1,0 +1,3 @@
+function modify() {
+	$("#mainForm").submit();
+}

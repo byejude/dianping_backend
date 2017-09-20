@@ -11,7 +11,7 @@ strong { font-weight:700; }
 /* end reset */
 /*clear float*/
 .fix { clear:both; zoom:1; }
-.fix:after{ display:block; clear:both; height:0; overflow:hidden; visibility:hidden; content:"."; }
+.fix:after{ display:block; clear:both; height:0; overflow:hidden; visibility:hidden; content:"."; } 
 /* =body= */
 body { font:12px/18px Arial, Helvetica, sans-serif,"宋体"; color:#6e6e6e; background:#1b5799 url(../images/bodybg.png) repeat-x;}
 a { color:#266392; text-decoration:none;}
@@ -127,7 +127,7 @@ input, select, teatarea { font:12px Arial, Helvetica, sans-serif; }
 .page b{ color:#2979b4}
 
 /*快捷操作*/
-.k_title { font-size:14px; color:#6e6e6e; font-weight:700; }
+.k_title { font-size:14px; color:#6e6e6e; font-weight:700; } 
 .k_title span { font-size:12px; font-weight:normal; color:#f89832}
 .tab3 { border-collapse:collapse; border:1px solid #ccc; margin-top:20px;}
 .tab3 td { border:1px solid #ccc; padding:15px 0 15px 40px;}
@@ -151,7 +151,7 @@ input, select, teatarea { font:12px Arial, Helvetica, sans-serif; }
 .checkIn { position:relative; top:2px; cursor:pointer;}
 
 /*浏览管理员*/
-.g_title { height:27px; line-height:27px; font-size:14px; color:#6e6e6e; font-weight:700; border-bottom:2px solid #99C7F4; padding-bottom:5px; margin-bottom:10px;}
+.g_title { height:27px; line-height:27px; font-size:14px; color:#6e6e6e; font-weight:700; border-bottom:2px solid #99C7F4; padding-bottom:5px; margin-bottom:10px;} 
 .g_title .btn03 { float:right; font-size:12px; font-weight:normal; width:80px; height:25px; padding-left:20px; margin-left:10px; text-align:center; line-height:25px; background:url(../images/btn06.gif) no-repeat; color:#266392;}
 .g_title .btn04 {float:right; font-size:12px; font-weight:normal; width:100px; height:27px;  margin-left:10px; text-align:center; line-height:27px; background:url(../images/btn04.gif) no-repeat; color:#266392;}
 .g_title .btn09 { float:right; font-size:12px; font-weight:normal; width:68px; height:25px; padding-left:20px; margin-left:10px; text-align:center; line-height:25px; background:url(../images/btn09.gif) no-repeat; color:#266392;}
@@ -182,7 +182,7 @@ input, select, teatarea { font:12px Arial, Helvetica, sans-serif; }
 .c_daoru textarea {width:800px; height:200px; border:1px solid #ccc; margin-top:20px;}
 .modelRadio .radioIn { margin-bottom:10px;}
 .modelRadio { float:left; margin-right:20px; margin-bottom:20px;}
-.hide, .hide2 { display:none;}
+.hide, .hide2 { display:none;} 
 .fabuzixun select { width:190px;}
 .hide2 li { float:left; width:100%; margin-bottom:5px;}
 .hide2 label { float:left; width:80px; text-align:right; line-height:22px;}
@@ -235,7 +235,7 @@ input, select, teatarea { font:12px Arial, Helvetica, sans-serif; }
 .l-text-field
 {
     position:absolute; top:0px; left:0px;
-    width:110px;
+    width:110px; 
     border:0; margin:0; outline:none;
 }
 
@@ -250,23 +250,23 @@ input, select, teatarea { font:12px Arial, Helvetica, sans-serif; }
 }
 .l-trigger
 {
-    border:1px solid #AECAF0;
+    border:1px solid #AECAF0; 
     background:#DBEBFF url('./images/bg-trigger.gif') repeat-x left;
 }
 .l-trigger-hover
 {
-    border:1px solid #EABE4E;
+    border:1px solid #EABE4E; 
     background:#fedc75 url('./images/bg-trigger-over.gif') repeat-x left;
 }
 .l-trigger-pressed
 {
-    border:1px solid #EABE4E;
+    border:1px solid #EABE4E; 
     background:#fedc75 url('./images/bg-trigger-pressed.gif') repeat-x left;
 }
 /* 下拉框 右侧那个可点击的区域里面的图标 */
 .l-trigger-icon
 {	width:100%;
-    height:100%;
+	height:100%;
     background:url('./images/icon-down.gif') no-repeat 50% 50%;
 }
 
@@ -274,7 +274,7 @@ input, select, teatarea { font:12px Arial, Helvetica, sans-serif; }
 .l-box-select
 {
     display:none;
-    position:absolute; padding:0px;
+    position:absolute; padding:0px;  
     border:1px solid #AECAF0; background:white;
     width:130px; height:120px;
     margin-top:1px;

@@ -8,6 +8,7 @@
 	    <link href="${basePath}/css/pop.css" rel="stylesheet" type="text/css"/>
 	    <link href="${basePath}/css/index.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="${basePath}/js/common/jquery-1.8.3.js"></script>
+        <script type="text/javascript" src="${basePath}/js/system/index.js"></script>
 	</head>
 	<body>
 		<!-- 蒙版DIV -->
@@ -41,7 +42,7 @@
 		                    <tr>
 		                        <td class="left"></td>
 		                        <td class="submit">
-		                            <input id="submitVal" class="tabSub" value="提交" onclick="checkForm('http://127.0.0.1:8081/comment');" type="button"/>
+		                            <input id="submitVal" class="tabSub" value="提交" onclick="checkForm('http://127.0.0.1:8081/');" type="button"/>
 		                            <input class="tabSub" value="关闭" onclick="closeDiv();" type="reset"/>
 		                        </td>
 		                    </tr>
@@ -67,7 +68,7 @@
 		                </div>
 		            </div>
 		            <ul class="nav" id="mainMenuUl">
-		            	<li onclick="" class="on"><a><span>页面原型</span></a></li>
+		            	<li onclick="" class="on"><a><span>内容管理</span></a></li>
 		            </ul>
 		        </div>
 		    </div>
@@ -78,8 +79,8 @@
 		                <td class="leftTd" style="vertical-align:top" width="150">
 		                    <div class="left">
 		                        <div class="ileft" id="menuDiv">
-		                        	<h3 onclick="$('#mainPage').attr('src','${basePath}/demo/initList');"><a>列表页面</a></h3>
-		                        	<h3 onclick="$('#mainPage').attr('src','${basePath}/demo/initModify');"><a>维护页面</a></h3>
+		                        	<h3 onclick="clickSecondMenu(this,'${basePath}/ad')"><a>列表页面</a></h3>
+		                        	<%--<h3 onclick="$('#mainPage').attr('src','${basePath}/demo/initModify');"><a>维护页面</a></h3>--%>
 		                        </div>
 		                    </div>
 		                </td>
