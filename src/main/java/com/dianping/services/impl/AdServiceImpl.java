@@ -4,11 +4,13 @@ import com.dianping.bean.Ad;
 import com.dianping.dao.AdDao;
 import com.dianping.dto.AdDto;
 import com.dianping.services.AdService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,14 +51,28 @@ public class AdServiceImpl implements AdService {
                 return false;
         }
 
+        }else{
+        return false;
+
         }
 
-        return false;
     }
 
     @Override
     public List<AdDto> searchByPage(AdDto adDto) {
-        return null;
+        List<AdDto> result= new ArrayList<AdDto>();
+        Ad ad = new Ad();
+        BeanUtils.copyProperties(adDto,ad);
+        List<Ad> adList= adDao.selectByPage(ad);
+
+        for (Ad adTemp :adList
+             ) {
+            AdDto adDtoTemp = new AdDto();
+            adDtoTemp.setImg(adInageUrl+adTemp.getImgFileName());
+            BeanUtils.copyProperties(adTemp,adDtoTemp);
+            result.add(adDtoTemp);
+        }
+        return result;
     }
 
     @Override

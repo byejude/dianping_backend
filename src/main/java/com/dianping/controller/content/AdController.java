@@ -8,7 +8,10 @@ import com.dianping.dto.AdDto;
 import com.dianping.services.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping(value = "/ad")
@@ -17,8 +20,10 @@ public class AdController {
     private AdService adService;
 
     @RequestMapping
-    public String adInit() {
-
+    public String adInit(Model model, HttpServletRequest request) {
+        AdDto adDto = new AdDto();
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+request);
+        model.addAttribute("list",adService.searchByPage(adDto));
         return "/content/adList";
     }
 
