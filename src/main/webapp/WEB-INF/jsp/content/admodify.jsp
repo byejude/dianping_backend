@@ -15,8 +15,9 @@
     <script type="text/javascript" src="${basePath}/js/content/adModify.js"></script>
 </head>
 <body style="background: #e1e9eb;">
+
 <form id="mainForm" method="post" action="${basePath}/ad/modify" enctype="multipart/form-data">
-    <input type="hidden" name="id" value="${modifyObj.id}"/>
+    <input type="hidden" name="id" value="${modifyObj123.id}"/>
     <input type="hidden" id="message" value="${pageCode.msg}"/>
     <input type="hidden" id="basePath" value="${basePath}"/>
     <div class="right">
@@ -28,23 +29,23 @@
                 <tr>
                     <td align="right" width="10%">标题<font color="red">*</font>：</td>
                     <td width="30%">
-                        <input id="title" name="title" value="${modifyObj.title}" class="allInput" style="width:100%;" type="text"/>
+                        <input id="title" name="title" value="${modifyObj123.title}" class="allInput" style="width:100%;" type="text"/>
                     </td>
                     <td align="right" width="10%">上传图片：</td>
                     <td width="30%">
-                        <a href="${modifyObj.img}">查看图片</a>
-                        <input type="hidden" name="img" value="${modifyObj.img}"/>
-                        <input id="imgFile" name="imgFile" class="allInput" style="width:100%;" type="file"/>
+                        <a href="${modifyObj123.img}">查看图片</a>
+                        <input type="hidden" name="img" value="${modifyObj123.img}"/>
+                        <input id="imgFile" name="imgFile" value="" class="allInput" style="width:100%;" type="file"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="right" width="10%">链接地址<font color="red">*</font>：</td>
                     <td width="30%">
-                        <input id="link" name="link"  value="${modifyObj.link}" class="allInput" style="width:100%;" type="text"/>
+                        <input id="link" name="link"  value="${modifyObj123.link}" class="allInput" style="width:100%;" type="text"/>
                     </td>
                     <td align="right" width="10%">权重(值越大排名越靠前)<font color="red">*</font>：</td>
                     <td width="30%">
-                        <input id="weight" name="weight"  value="${modifyObj.weight}" class="allInput" style="width:100%;" type="text"/>
+                        <input id="weight" name="weight"  value="${modifyObj123.weight}" class="allInput" style="width:100%;" type="text"/>
                     </td>
                 </tr>
                 </tbody>

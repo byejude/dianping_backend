@@ -13,6 +13,9 @@ import com.dianping.dto.BusinessDto;
 import com.dianping.dto.BusinessListDto;
 import com.dianping.dto.CommentListDto;
 import com.dianping.dto.OrdersDto;
+import com.dianping.services.AdService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +30,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/api")
 public class ApiController {
 
+    @Autowired
+    private AdService adService;
+
+    @Value("${ad.number}")
+    private int adNumber;
+
     /**
      * 首页 —— 广告（超值特惠）
      * @throws IOException
@@ -34,11 +43,10 @@ public class ApiController {
      * @throws JsonParseException
      */
     @RequestMapping(value = "/homead", method = RequestMethod.GET)
-    public List<AdDto> homead() throws JsonParseException, JsonMappingException, IOException {
-        ObjectMapper mapper = new ObjectMapper();
-
-        String s = "[{\"title\":\"暑假5折\",\"img\":\"http://images2015.cnblogs.com/blog/138012/201610/138012-20161016191639092-2000037796.png\",\"link\":\"http://www.imooc.com/wap/index\"},{\"title\":\"特价出国\",\"img\":\"http://images2015.cnblogs.com/blog/138012/201610/138012-20161016191648124-298129318.png\",\"link\":\"http://www.imooc.com/wap/index\"},{\"title\":\"亮亮车\",\"img\":\"http://images2015.cnblogs.com/blog/138012/201610/138012-20161016191653983-1962772127.png\",\"link\":\"http://www.imooc.com/wap/index\"},{\"title\":\"学钢琴\",\"img\":\"http://images2015.cnblogs.com/blog/138012/201610/138012-20161016191700420-1584459466.png\",\"link\":\"http://www.imooc.com/wap/index\"},{\"title\":\"电影\",\"img\":\"http://images2015.cnblogs.com/blog/138012/201610/138012-20161016191706733-367929553.png\",\"link\":\"http://www.imooc.com/wap/index\"},{\"title\":\"旅游热线\",\"img\":\"http://images2015.cnblogs.com/blog/138012/201610/138012-20161016191713186-495002222.png\",\"link\":\"http://www.imooc.com/wap/index\"}]";
-        return mapper.readValue(s,new TypeReference<List<AdDto>>() {});
+    public List<AdDto> homead()  {
+        AdDto adDto = new AdDto();
+        adDto.getPage().setNumberInPage(adNumber);
+        return adService.searchByPage(adDto);
     }
 
     /**

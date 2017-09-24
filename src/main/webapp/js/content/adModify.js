@@ -9,6 +9,7 @@ $(function() {
 				digits : true,
 				maxlength : 5
 			}
+
 		},
 		messages : {
 			"title" : "请输入标题！"

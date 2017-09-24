@@ -41,6 +41,7 @@ public class PageInterceptor implements Interceptor{
             Page page = bean.getPage();
             if(rs.next()) {
                 page.setTotalNumber(rs.getInt(1));
+                System.out.print("@@@@@!!!!!!!!!!!!@@@@"+rs.getInt(1)+"############");
             }
             String pageSql = sql + " limit " + (page.getCurrentPage() - 1) * page.getNumberInPage() + "," + page.getNumberInPage();
             metaObject.setValue("delegate.boundSql.sql", pageSql);

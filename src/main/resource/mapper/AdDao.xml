@@ -5,7 +5,7 @@
 <mapper namespace="com.dianping.dao.AdDao">
     <insert id="insert">
         insert into ad(title,img_file_name,link,weight)
-        values(#{title},#{imgFileName},#{link},#{weight})
+        values(#{title},#{img_File_Name},#{link},#{weight})
     </insert>
 
     <select id="selectByPage" resultType="Ad">
@@ -28,8 +28,8 @@
             <if test="title != null">
                 title = #{title},
             </if>
-            <if test="imgFileName != null">
-                img_file_name = #{imgFileName},
+            <if test="img_File_Name != null">
+                img_file_name = #{img_File_Name},
             </if>
             <if test="link != null">
                 link = #{link},
@@ -40,6 +40,7 @@
         </set>
         where id=#{id}
     </update>
+
 
     <delete id="delete">
         delete from ad where id=#{_parameter}

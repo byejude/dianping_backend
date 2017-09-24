@@ -38,12 +38,13 @@ public class AdController {
     //加载广告修改起始页
     @RequestMapping("/modifyInit")
     public String modifyInit(Model model,@RequestParam("id") Long id){
-        model.addAttribute("modifyobj",adService.getById(id));
+        model.addAttribute("modifyObj123",adService.getById(id));
         return "/content/admodify";
     }
 
     @RequestMapping("/add")
     public String adAdd(Model model,AdDto adDto) {
+
         if(adService.add(adDto)){
            model.addAttribute(PageCodeEnum.KEY,PageCodeEnum.ADD_SUCCESS);
         }else{
@@ -69,17 +70,16 @@ public class AdController {
         return  "redirect:/ad";
     }
 
-
     @RequestMapping("/modify")
-   public String modify(Model model,AdDto adDto){
-      if (adService.modify(adDto)){
-          model.addAttribute(PageCodeEnum.KEY,PageCodeEnum.MODIFY_SUCCESS);
-      }else{
-          model.addAttribute(PageCodeEnum.KEY,PageCodeEnum.MODIFY_FAIL);
-      }
-      return  "redirect:/ad";
-
-  }
+    public String modify(Model model, AdDto adDto) {
+        model.addAttribute("modifyObj123", adDto);
+        if (adService.modify(adDto)) {
+            model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.MODIFY_SUCCESS);
+        } else {
+            model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.MODIFY_FAIL);
+        }
+        return "/content/admodify";
+    }
 
 
 }

@@ -6,6 +6,7 @@ import com.dianping.dao.AdDao;
 import com.dianping.dto.AdDto;
 import com.dianping.services.AdService;
 import com.dianping.utils.FileUtil;
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -99,43 +100,45 @@ public class AdServiceImpl implements AdService {
     @Override
     public boolean remove(Long id) {
         Ad ad = adDao.selectById(id);
-        if(FileUtil.delete(adImageSavePath+ad.getImgFileName())){
+
         int deleteRows = adDao.delete(id);
+        FileUtil.delete(adImageSavePath+ad.getImgFileName());
           return  deleteRows == 1;
-        }else{
-        return false;
-        }
+
+
     }
 
     @Override
     public AdDto getById(Long id) {
-        return null;
+        AdDto adDtoTemp = new AdDto();
+        Ad ad = adDao.selectById(id);
+        BeanUtils.copyProperties(ad,adDtoTemp);
+        adDtoTemp.setImg(adInageUrl+ad.getImgFileName());
+        System.out.println("@@@@@@@@@@@@@@"+ad.getImgFileName());
+        return adDtoTemp;
     }
 
     @Override
     public boolean modify(AdDto adDto) {
         Ad ad = new Ad();
-        BeanUtils.copyProperties(adDto,ad);
-        String filename = null;
-        if(adDto.getImgFile()!=null&&adDto.getImgFile().getSize()>0){
+        BeanUtils.copyProperties(adDto, ad);
+        System.out.print("!!!!!!!!!!!!!!!!!!!!!!!"+adDto.getId());
+        System.out.print("@@@@@@@@@@@@@@@@@@@@@"+ad.getId());
+        String fileName = null;
+        if (adDto.getImgFile() != null && adDto.getImgFile().getSize() > 0) {
             try {
-                filename = FileUtil.save(adDto.getImgFile(),adImageSavePath);
-                if (filename.equals("")){
-                ad.setImgFileName(filename);}
-                else{
-                    return false;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+                fileName = FileUtil.save(adDto.getImgFile(), adImageSavePath);
+                ad.setImgFileName(fileName);
+            } catch (IllegalStateException | IOException e) {
+                // TODO 需要添加日志
+                return false;
             }
         }
         int updateCount = adDao.update(ad);
-        if(updateCount!=1){
+        if (updateCount != 1) {
             return false;
         }
-        if (filename!=null){
-            return FileUtil.delete(adImageSavePath + adDto.getImgFileName());
-        }
-        return false;
+
+        return true;
     }
 }

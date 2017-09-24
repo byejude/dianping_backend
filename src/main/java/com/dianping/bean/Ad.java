@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Ad extends BaseBean{
     private Long id;
     private String title;
-    private String imgFileName;
+    private String img_File_Name;
     private String link;
     private Long weight;
 
@@ -22,7 +22,7 @@ public class Ad extends BaseBean{
     }
 
     public String getImgFileName() {
-        return imgFileName;
+        return img_File_Name;
     }
 
     public String getLink() {
@@ -42,7 +42,7 @@ public class Ad extends BaseBean{
     }
 
     public void setImgFileName(String imgFileName) {
-        this.imgFileName = imgFileName;
+        this.img_File_Name = imgFileName;
     }
 
     public void setLink(String link) {
