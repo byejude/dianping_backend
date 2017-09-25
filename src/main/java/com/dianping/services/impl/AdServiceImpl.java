@@ -122,8 +122,7 @@ public class AdServiceImpl implements AdService {
     public boolean modify(AdDto adDto) {
         Ad ad = new Ad();
         BeanUtils.copyProperties(adDto, ad);
-        System.out.print("!!!!!!!!!!!!!!!!!!!!!!!"+adDto.getId());
-        System.out.print("@@@@@@@@@@@@@@@@@@@@@"+ad.getId());
+
         String fileName = null;
         if (adDto.getImgFile() != null && adDto.getImgFile().getSize() > 0) {
             try {
@@ -138,7 +137,7 @@ public class AdServiceImpl implements AdService {
         if (updateCount != 1) {
             return false;
         }
-
+       //todo 删除更新前的图片
         return true;
     }
 }
