@@ -1,6 +1,10 @@
 package com.dianping.services;
 
 
+import com.dianping.dto.BusinessDto;
+
+import java.util.List;
+
 public interface BusinessService {
     
     boolean add(BusinessDto businessDto);

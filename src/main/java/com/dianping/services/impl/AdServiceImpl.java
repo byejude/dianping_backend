@@ -6,13 +6,11 @@ import com.dianping.dao.AdDao;
 import com.dianping.dto.AdDto;
 import com.dianping.services.AdService;
 import com.dianping.utils.FileUtil;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

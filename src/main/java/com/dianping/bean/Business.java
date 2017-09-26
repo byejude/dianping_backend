@@ -18,6 +18,7 @@ public class Business extends BaseBean {
     private String category;
     private Long starTotalNum;
     private Long commentTotalNum;
+    private String imgFileName;
 
     private Dic cityDic;
     private Dic categoryDic;
@@ -126,9 +127,11 @@ public class Business extends BaseBean {
         this.categoryDic = categoryDic;
     }
 
+    public String getImgFileName() {
+        return imgFileName;
+    }
 
-
-
-
-
+    public void setImgFileName(String imgFileName) {
+        this.imgFileName = imgFileName;
+    }
 }

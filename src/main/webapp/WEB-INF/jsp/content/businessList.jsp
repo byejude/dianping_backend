@@ -31,9 +31,9 @@
 								</td>
 	                            <td style="text-align: right;" width="150">
 	                            	<input class="tabSub" value="查询" onclick="search('1');" type="button"/>&nbsp;&nbsp;&nbsp;&nbsp;
-	                            	<t:auth url="/businesses/addPage" method="GET">
+	                            	<%--<t:auth url="/businesses/addPage" method="GET">--%>
 	                            		<input class="tabSub" value="添加" onclick="location.href='${basePath}/businesses/addPage'" type="button"/>
-	                            	</t:auth>
+	                            	<%--</t:auth>--%>
 	                            </td>
 	       					</tr>
 						</tbody>
@@ -58,12 +58,12 @@
 										<td>${item.cityDic.name}</td>
 										<td>${item.categoryDic.name}</td>
 										<td>
-											<t:auth url="/businesses/${item.id}" method="PUT">
+											<%--<t:auth url="/businesses/${item.id}" method="PUT">--%>
 												<a href="javascript:void(0);" onclick="modifyInit('${item.id}')">修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
-											</t:auth>
-											<t:auth url="/businesses/${item.id}" method="DELETE">
+											<%--</t:auth>--%>
+											<%--<t:auth url="/businesses/${item.id}" method="DELETE">--%>
 												<a href="javascript:void(0);" onclick="remove('${item.id}')">删除</a>
-											</t:auth>
+											<%--</t:auth>--%>
 										</td>
 									</tr>
 								</c:forEach>
