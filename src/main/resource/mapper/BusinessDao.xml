@@ -42,9 +42,9 @@
         from
         business b
         left join dic d_city on b.city=d_city.code and
-        d_city.type='${@org.imooc.constant.DicTypeConst@CITY}'
+        d_city.type='${@com.dianping.constant.DicTypeConst@CITY}'
         left join dic d_category on
-        b.category=d_category.code and d_category.type='${@org.imooc.constant.DicTypeConst@CATEGORY}'
+        b.category=d_category.code and d_category.type='${@com.dianping.constant.DicTypeConst@CATEGORY}'
         <where>
             <if test="title != null and title != ''">
                 and b.title like '%' #{title} '%'
