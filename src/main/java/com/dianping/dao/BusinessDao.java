@@ -49,4 +49,6 @@ public interface BusinessDao {
      * @return
      */
     int updateStar(Map<String,Date> map);
+
+    int delete(Long id);
 }

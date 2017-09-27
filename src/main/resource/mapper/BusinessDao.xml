@@ -29,6 +29,10 @@
         values(#{imgFileName},#{title},#{subtitle},#{price},#{distance},#{number},#{desc},#{city},#{category},#{starTotalNum},#{commentTotalNum})
     </insert>
 
+    <delete id="delete">
+        delete from busibess where id=#{_parameter}
+    </delete>
+
     <select id="selectById" resultType="Business">
         select
         id,img_file_name,title,subtitle,price,distance,number,`desc`,city,category,star_total_num,comment_total_num

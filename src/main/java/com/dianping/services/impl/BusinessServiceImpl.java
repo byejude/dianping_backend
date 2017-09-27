@@ -3,11 +3,13 @@ import com.dianping.bean.Business;
 import com.dianping.dao.BusinessDao;
 import com.dianping.dto.BusinessDto;
 import com.dianping.services.BusinessService;
+import com.dianping.utils.FileUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -23,7 +25,22 @@ public class BusinessServiceImpl implements BusinessService{
 
     @Override
     public boolean add(BusinessDto businessDto) {
-        return false;
+        Business businessTemp = new Business();
+        BeanUtils.copyProperties(businessDto,businessTemp);
+        if(businessDto.getImgFile()!=null&&businessDto.getImgFile().getSize()>0){
+            try {
+                String filename = FileUtil.save(businessDto.getImgFile(),businessImagesavePath);
+                businessTemp.setImgFileName(filename);
+                businessTemp.setNumber(0);
+                businessTemp.setStarTotalNum(0L);
+                businessTemp.setCommentTotalNum(0L);
+                businessDao.insert(businessTemp);
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+        }
+            return false;
     }
 
     @Override
@@ -58,11 +75,15 @@ public class BusinessServiceImpl implements BusinessService{
 
     @Override
     public boolean remove(Long id) {
-        return false;
+        Business business = businessDao.selectById(id);
+        FileUtil.delete(businessImagesavePath+business.getImgFileName());
+
+        return businessDao.delete(id) ==1;
     }
 
     @Override
     public boolean modify(BusinessDto businessDto) {
+
         return false;
     }
 
