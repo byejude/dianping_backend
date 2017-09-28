@@ -77,8 +77,17 @@ public class BusinessContorller {
 
     //修改商户
     @RequestMapping(value="/{id}",method = RequestMethod.PUT)
-    public String modifyBusiness(){
-    return "/content/businessModify";
+    public String modifyBusiness(Model model,BusinessDto businessDto){
+        model.addAttribute("modifyObj",businessDto);
+        if (businessService.modify(businessDto)){
+            model.addAttribute(PageCodeEnum.KEY,PageCodeEnum.MODIFY_SUCCESS);
+        }else {
+            model.addAttribute(PageCodeEnum.KEY,PageCodeEnum.MODIFY_FAIL);
+        }
+
+
+
+        return "/content/businessModify";
     }
 
 

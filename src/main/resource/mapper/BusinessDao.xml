@@ -106,4 +106,41 @@
         set b.star_total_num = b.star_total_num + t.star_num,b.comment_total_num = b.comment_total_num + t.comment_num
         where b.id=t.business_id
     </update>
+
+    <update id="updateBusiness">
+        update business
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="subtitle != null">
+                subtitle = #{subtitle},
+            </if>
+            <if test="img_File_Name != null">
+                img_file_name = #{img_File_Name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="distance != null">
+                distance = #{distance},
+            </if>
+            <if test="desc != null">
+                desc = #{desc},
+            </if>
+            <if test="city != null">
+                city = #{city},
+            </if>
+            <if test="category != null">
+                category = #{category},
+            </if>
+            <if test="starTotalNum != null">
+                star_total_num = #{starTotalNum},
+            </if>
+            <if test="commentTotalNum != null">
+                comment_total_num = #{commentTotalNum},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
 </mapper>

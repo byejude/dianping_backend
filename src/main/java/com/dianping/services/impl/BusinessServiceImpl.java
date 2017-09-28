@@ -1,8 +1,12 @@
 package com.dianping.services.impl;
 import com.dianping.bean.Business;
+import com.dianping.bean.Page;
+import com.dianping.constant.CategoryConst;
 import com.dianping.dao.BusinessDao;
 import com.dianping.dto.BusinessDto;
+import com.dianping.dto.BusinessListDto;
 import com.dianping.services.BusinessService;
+import com.dianping.utils.CommonUtil;
 import com.dianping.utils.FileUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.dianping.utils.FileUtil.save;
+
 @Service
 public class BusinessServiceImpl implements BusinessService{
     @Autowired
@@ -29,7 +36,7 @@ public class BusinessServiceImpl implements BusinessService{
         BeanUtils.copyProperties(businessDto,businessTemp);
         if(businessDto.getImgFile()!=null&&businessDto.getImgFile().getSize()>0){
             try {
-                String filename = FileUtil.save(businessDto.getImgFile(),businessImagesavePath);
+                String filename = save(businessDto.getImgFile(),businessImagesavePath);
                 businessTemp.setImgFileName(filename);
                 businessTemp.setNumber(0);
                 businessTemp.setStarTotalNum(0L);
@@ -83,8 +90,63 @@ public class BusinessServiceImpl implements BusinessService{
 
     @Override
     public boolean modify(BusinessDto businessDto) {
-
+        Business businessTemp = new Business();
+        BeanUtils.copyProperties(businessDto,businessTemp);
+        String filename = null;
+        if(businessDto.getImgFile()!=null&&businessDto.getImgFile().getSize()>0){
+            try {
+                filename =  FileUtil.save(businessDto.getImgFile(),businessImagesavePath);
+                businessTemp.setImgFileName(filename);
+            } catch (IOException e) {
+                return false;
+            }
+        }
+        //todo 删除老图片
+        int updaterow = businessDao.updateBusiness(businessTemp);
+        if (updaterow!=1){
+                return true;
+            }
         return false;
+    }
+
+
+    @Override
+    public BusinessListDto searchByPageForApi(BusinessDto businessDto) {
+        BusinessListDto result = new BusinessListDto();
+        Business businessTemp = new Business();
+        BeanUtils.copyProperties(businessDto,businessTemp);
+        if(!CommonUtil.isEmpty(businessDto.getKeyword())){
+            businessTemp.setTitle(businessDto.getKeyword());
+            businessTemp.setSubtitle(businessDto.getKeyword());
+            businessTemp.setDesc(businessDto.getKeyword());
+        }
+
+        if(businessDto.getCategory()!=null&&businessDto.getCategory().equals(CategoryConst.ALL)){
+            businessDto.setCategory(null);
+        }
+
+        int currentPageFromFront = businessDto.getPage().getCurrentPage();
+        businessTemp.getPage().setCurrentPage(currentPageFromFront+1);
+
+        Page page = businessTemp.getPage();
+        result.setHasMore(page.getCurrentPage()<page.getTotalPage());
+
+        List<Business> list = businessDao.selectLikeByPage(businessTemp);
+
+        for (Business bs:list
+             ) {
+            BusinessDto bsd = new BusinessDto();
+            BeanUtils.copyProperties(bs,bsd);
+            bsd.setImg(businessImageUrl+bs.getImgFileName());
+
+            bsd.setMumber(bs.getNumber());
+
+            bsd.setStar(this.getStar(bs));
+            result.getData().add(bsd);
+
+        }
+
+        return result;
     }
 
     private int getStar(Business business) {

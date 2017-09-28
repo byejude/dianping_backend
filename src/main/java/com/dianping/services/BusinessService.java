@@ -2,6 +2,7 @@ package com.dianping.services;
 
 
 import com.dianping.dto.BusinessDto;
+import com.dianping.dto.BusinessListDto;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface BusinessService {
 
     boolean modify(BusinessDto businessDto);
 
-   // BusinessListDto searchByPageForApi(BusinessDto businessDto);
+    BusinessListDto searchByPageForApi(BusinessDto businessDto);
 }
