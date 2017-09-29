@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dianping.dao.CommentDao">
+    <resultMap type="Comment" id="CommentResultMap">
+        <id column="id" property="id" />
+        <result column="comment" property="comment" />
+        <result column="star" property="star" />
+        <result column="create_time" property="createTime" />
+        <association property="orders" resultMap="com.dianping.dao.OrdersDao.OrdersResultMap"/>
+    </resultMap>
+
+    <insert id="insert">
+        insert into comment(orders_id,comment,star,create_time)
+        values(#{ordersId},#{comment},#{star},#{createTime})
+    </insert>
+
+    <select id="selectByPage" resultMap="CommentResultMap">
+        select c.id,c.orders_id,c.comment,c.star,c.create_time,m.phone
+        from comment c,orders o,business b,member m
+        where c.orders_id = o.id and o.business_id = b.id
+        <if test="orders.business.id != null">
+            and b.id = #{orders.business.id}
+        </if>
+        order by create_time desc
+    </select>
+</mapper>
