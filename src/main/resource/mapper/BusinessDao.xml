@@ -30,7 +30,7 @@
     </insert>
 
     <delete id="delete">
-        delete from busibess where id=#{_parameter}
+        delete from business where id=#{_parameter}
     </delete>
 
     <select id="selectById" resultType="Business">
@@ -116,8 +116,8 @@
             <if test="subtitle != null">
                 subtitle = #{subtitle},
             </if>
-            <if test="img_File_Name != null">
-                img_file_name = #{img_File_Name},
+            <if test="imgFileName != null">
+                img_file_name = #{imgFileName},
             </if>
             <if test="price != null">
                 price = #{price},
@@ -126,7 +126,7 @@
                 distance = #{distance},
             </if>
             <if test="desc != null">
-                desc = #{desc},
+                `desc` = #{desc},
             </if>
             <if test="city != null">
                 city = #{city},

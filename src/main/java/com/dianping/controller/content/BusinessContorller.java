@@ -29,6 +29,7 @@ public class BusinessContorller {
     //商户页面初始化
     @RequestMapping(method = RequestMethod.GET)
     public String initSearch(Model model, BusinessDto businessDto){
+        System.out.println("********"+businessDto.getTitle()+"*******");
         model.addAttribute("list",businessService.selectByPage(businessDto));
         model.addAttribute("searchParam",businessDto);
         return "/content/businessList";
@@ -47,10 +48,10 @@ public class BusinessContorller {
     public  String addBusiness(BusinessDto businessDto, RedirectAttributes attributes){
         if(businessService.add(businessDto)){
             attributes.addAttribute(PageCodeEnum.KEY,PageCodeEnum.ADD_SUCCESS);
-            return "redirect:/business";
+            return "redirect:/businesses";
         }else {
             attributes.addAttribute(PageCodeEnum.KEY,PageCodeEnum.ADD_FAIL);
-            return "redirect:/business/addPage";
+            return "redirect:/businesses/addPage";
         }
 
 
@@ -74,7 +75,7 @@ public class BusinessContorller {
         }else{
             model.addAttribute(PageCodeEnum.KEY,PageCodeEnum.REMOVE_FAIL);
         }
-        return "redirect:/business";
+        return "redirect:/businesses";
     }
 
     //修改商户
