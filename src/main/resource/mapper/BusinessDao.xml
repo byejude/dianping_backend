@@ -76,8 +76,9 @@
             <if test="title != null and title != ''
 			 and subtitle != null and subtitle != ''
 			 and desc != null and desc != ''">
-                and
-                (title like '%' #{title} '%' or subtitle like '%' #{subtitle} '%' or `desc` like '%' #{desc} '%')
+
+                (title like concat('%',#{title},'%') or subtitle like concat('%',#{subtitle},'%') or `desc` like concat('%',#{desc},'%'))
+
             </if>
             <if test="city != null and city != ''">
                 and city = #{city}

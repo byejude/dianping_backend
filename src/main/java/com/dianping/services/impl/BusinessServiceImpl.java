@@ -8,6 +8,7 @@ import com.dianping.dto.BusinessListDto;
 import com.dianping.services.BusinessService;
 import com.dianping.utils.CommonUtil;
 import com.dianping.utils.FileUtil;
+import org.apache.ibatis.javassist.compiler.ast.Keyword;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -104,9 +105,10 @@ public class BusinessServiceImpl implements BusinessService{
         //todo 删除老图片
         int updaterow = businessDao.updateBusiness(businessTemp);
         if (updaterow!=1){
-                return true;
+
+                return false;
             }
-        return false;
+        return true;
     }
 
 
@@ -115,17 +117,24 @@ public class BusinessServiceImpl implements BusinessService{
         BusinessListDto result = new BusinessListDto();
         Business businessTemp = new Business();
         BeanUtils.copyProperties(businessDto,businessTemp);
-        if(!CommonUtil.isEmpty(businessDto.getKeyword())){
-            businessTemp.setTitle(businessDto.getKeyword());
-            businessTemp.setSubtitle(businessDto.getKeyword());
-            businessTemp.setDesc(businessDto.getKeyword());
+        String keyWord = businessDto.getKeyword();
+        System.out.println( "businessDto.getKeyword()————————————》"+keyWord);
+        if(!CommonUtil.isEmpty(keyWord)){
+            System.out.println( "businessDto.getKeyword()————————————》"+keyWord);
+            businessTemp.setTitle(keyWord);
+           businessTemp.setSubtitle(keyWord);
+           businessTemp.setDesc(keyWord);
         }
-
+        System.out.println( "businessDto.getKeyword()11111111111————————————》"+businessTemp.getTitle());
+        System.out.println( "businessDto.getKeyword()22222222222————————————》"+businessTemp.getSubtitle());
+        System.out.println( "businessDto.getKeyword()—33333333333———————————》"+businessTemp.getDesc());
+        System.out.println("businessDto.getCategory()_____>"+businessDto.getCategory());
         if(businessDto.getCategory()!=null&&businessDto.getCategory().equals(CategoryConst.ALL)){
-            businessDto.setCategory(null);
+            businessTemp.setCategory(null);
         }
 
         int currentPageFromFront = businessDto.getPage().getCurrentPage();
+        System.out.println("businessDto.getPage().getCurrentPage()_____>"+businessDto.getPage().getCurrentPage());
         businessTemp.getPage().setCurrentPage(currentPageFromFront+1);
 
         Page page = businessTemp.getPage();
@@ -135,6 +144,7 @@ public class BusinessServiceImpl implements BusinessService{
 
         for (Business bs:list
              ) {
+            System.out.print("!!!!!!!_________________!!!"+bs.getTitle());
             BusinessDto bsd = new BusinessDto();
             BeanUtils.copyProperties(bs,bsd);
             bsd.setImg(businessImageUrl+bs.getImgFileName());
@@ -145,7 +155,7 @@ public class BusinessServiceImpl implements BusinessService{
             result.getData().add(bsd);
 
         }
-
+        System.out.println("3333333333333333333333333333333333333333");
         return result;
     }
 

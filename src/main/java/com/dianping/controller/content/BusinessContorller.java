@@ -50,8 +50,9 @@ public class BusinessContorller {
             attributes.addAttribute(PageCodeEnum.KEY,PageCodeEnum.ADD_SUCCESS);
             return "redirect:/businesses";
         }else {
+            System.out.println("**************");
             attributes.addAttribute(PageCodeEnum.KEY,PageCodeEnum.ADD_FAIL);
-            return "redirect:/businesses/addPage";
+            return "redirect:/businesses";
         }
 
 
@@ -84,13 +85,15 @@ public class BusinessContorller {
         model.addAttribute("modifyObj",businessDto);
         if (businessService.modify(businessDto)){
             model.addAttribute(PageCodeEnum.KEY,PageCodeEnum.MODIFY_SUCCESS);
+            return "redirect:/businesses";
         }else {
             model.addAttribute(PageCodeEnum.KEY,PageCodeEnum.MODIFY_FAIL);
+            return "/content/businessModify";
         }
 
 
 
-        return "/content/businessModify";
+
     }
 
 

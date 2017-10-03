@@ -2,9 +2,9 @@ $(function() {
 	common.showMessage($("#message").val());
 	$("#mainForm").validate({
 		rules : {
-			"title" : "required",
-			"link" : "required",
-			"weight" : {
+			title : "required",
+			link : "required",
+			weight : {
 				required : true,
 				digits : true,
 				maxlength : 5

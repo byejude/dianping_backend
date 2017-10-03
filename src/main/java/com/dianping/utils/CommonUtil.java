@@ -5,7 +5,8 @@ import java.util.UUID;
 public class CommonUtil {
 
     public static boolean isEmpty(String str){
-        if(str==null&&str.trim().equals("")){
+        if(str==null||str.trim().equals("")){
+
             return true;
         }else {
             return false;

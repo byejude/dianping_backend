@@ -4,11 +4,14 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE"/>
 		<title></title>
-		<link rel="stylesheet" type="text/css" href="${basePath}/css/all.css"/>
-		<link rel="stylesheet" type="text/css" href="${basePath}/css/pop.css"/>
-		<link rel="stylesheet" type="text/css" href="${basePath}/css/main.css"/>
-		<script type="text/javascript" src="${basePath}/js/common/jquery-1.8.3.js"></script>
-		<script type="text/javascript" src="${basePath}/js/common/common.js"></script>
+	<link rel="stylesheet" type="text/css" href="${basePath}/css/all.css"/>
+	<link rel="stylesheet" type="text/css" href="${basePath}/css/pop.css"/>
+	<link rel="stylesheet" type="text/css" href="${basePath}/css/main.css"/>
+	<link rel="stylesheet" type="text/css" href="${basePath}/css/jquery.validate.css"/>
+	<script type="text/javascript" src="${basePath}/js/common/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="${basePath}/js/common/validation/jquery.validate.js"></script>
+	<script type="text/javascript" src="${basePath}/js/common/validation/messages_zh.js"></script>
+	<script type="text/javascript" src="${basePath}/js/common/common.js"></script>
 		<script type="text/javascript" src="${basePath}/js/content/adAdd.js"></script>
 	</head>
 	<body style="background: #e1e9eb;">
@@ -24,7 +27,7 @@
 							<tr>
 							<td align="right" width="10%">标题<font color="red">*</font>：</td>
 							<td width="30%">
-								<input id="title" name="title" class="allInput" style="width:100%;" type="text"/>
+								<input id="title" name="title" class="allInput" value="${modifyObj123.title}"style="width:100%;" type="text" />
 							</td>
 							<td align="right" width="10%">上传图片<font color="red">*</font>：</td>
 							<td width="30%">
