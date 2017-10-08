@@ -10,7 +10,7 @@ public class Comment extends  BaseBean {
     private Long ordersId;
     private String comment;
     private Integer star;
-    private Date createTie;
+    private Date createTime;
     private Orders orders;
 
     public Long getId() {
@@ -45,12 +45,12 @@ public class Comment extends  BaseBean {
         this.star = star;
     }
 
-    public Date getCreateTie() {
-        return createTie;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreateTie(Date createTie) {
-        this.createTie = createTie;
+    public void setCreateTime(Date createTie) {
+        this.createTime = createTime;
     }
 
     public Orders getOrders() {

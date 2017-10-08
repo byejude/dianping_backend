@@ -81,6 +81,8 @@
 		                        <div class="ileft" id="menuDiv">
 		                        	<h3 onclick="clickSecondMenu(this,'${basePath}/ad')"><a>广告页面</a></h3>
 									<h3 onclick="clickSecondMenu(this,'${basePath}/businesses')"><a>商户页面</a></h3>
+									<h3 onclick="clickSecondMenu(this,'${basePath}/orders')"><a>订单页面</a></h3>
+									<h3 onclick="clickSecondMenu(this,'${basePath}/comments')"><a>评价页面</a></h3>
 		                        	<%--<h3 onclick="$('#mainPage').attr('src','${basePath}/demo/initModify');"><a>维护页面</a></h3>--%>
 		                        </div>
 		                    </div>

@@ -50,6 +50,8 @@ public interface BusinessDao {
      */
     int updateStar(Map<String,Date> map);
 
+    int updateNumber();
+
     int delete(Long id);
 
     int updateBusiness(Business business);

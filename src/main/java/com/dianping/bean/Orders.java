@@ -10,7 +10,7 @@ public class Orders extends BaseBean{
     private Long businessId;
     private Long memberId;
     private Integer num;
-    private Integer commonState;
+    private Integer commentState;
     private Double price;
     private Date  createTime;
     private Business business;
@@ -48,12 +48,12 @@ public class Orders extends BaseBean{
         this.num = num;
     }
 
-    public Integer getCommonState() {
-        return commonState;
+    public Integer getcommentState() {
+        return commentState;
     }
 
-    public void setCommonState(Integer commonState) {
-        this.commonState = commonState;
+    public void setcommentState(Integer commentState) {
+        this.commentState = commentState;
     }
 
     public Double getPrice() {

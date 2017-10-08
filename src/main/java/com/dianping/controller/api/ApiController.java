@@ -8,20 +8,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.dianping.bean.Page;
+import com.dianping.bean.SysParam;
 import com.dianping.constant.ApiCodeEnum;
 import com.dianping.dto.*;
-import com.dianping.services.AdService;
-import com.dianping.services.BusinessService;
-import com.dianping.services.MemberService;
+import com.dianping.services.*;
 import com.dianping.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/api")
@@ -35,6 +31,12 @@ public class ApiController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private OrdersService ordersService;
+
+    @Autowired
+    private CommentService commentService;
 
     @Value("${ad.number}")
     private int adNumber;
@@ -117,8 +119,9 @@ public class ApiController {
           return apiCodeDto;
     }
 
-
-
+    /**
+     * 会员登录
+     */
     @RequestMapping(value = "/login" ,method = RequestMethod.POST)
     public ApiCodeDto login(@RequestParam("username")Long username,@RequestParam("code") String code){
           ApiCodeDto apiCodeDto;
@@ -140,37 +143,72 @@ public class ApiController {
           return apiCodeDto;
     }
 
+    /**
+     * 买单
+     */
+     @RequestMapping(value = "/order",method = RequestMethod.POST)
+     public ApiCodeDto order(OrdersFoyBuyDto ordersFoyBuyDto){
+         ApiCodeDto apiCodeDto;
+         Long phone = memberService.getPhone(ordersFoyBuyDto.getToken());
+         if(phone!= null&&phone.equals(ordersFoyBuyDto.getUsername())){
+             Long memberId = memberService.getIdByPhone(phone);
+                 OrdersDto ordersDto = new OrdersDto();
+                 ordersDto.setNum(ordersFoyBuyDto.getNum());
+                 ordersDto.setPrice(ordersFoyBuyDto.getPrice());
+                 ordersDto.setBusinessId(ordersFoyBuyDto.getId());
+             ordersDto.setMemberId(memberId);
+             ordersService.add(ordersDto);
+             apiCodeDto = new ApiCodeDto(ApiCodeEnum.SUCCESS);
+
+         }else {
+             apiCodeDto = new ApiCodeDto(ApiCodeEnum.NOT_LOGGED);
+         }
+         return apiCodeDto;
+     }
 
 
 
     /**
      * 详情页 - 用户评论
      */
-    @RequestMapping(value = "/detail/comment/{page}/{id}", method = RequestMethod.GET)
-    public CommentListDto detail() throws JsonParseException, JsonMappingException, IOException {
-        String s = "{\"hasMore\":true,\"data\":[{\"username\":\"133****3355\",\"comment\":\"非常好吃，棒棒的，下次再来\",\"star\":5},{\"username\":\"135****3452\",\"comment\":\"羊肉够分量，不错\",\"star\":4},{\"username\":\"137****1242\",\"comment\":\"有自助的水果，非常喜欢\",\"star\":4},{\"username\":\"131****3980\",\"comment\":\"桌子环境有点糟糕，不喜欢\",\"star\":2},{\"username\":\"135****3565\",\"comment\":\"基本还可以，中规中矩吧，虽然没有啥惊喜\",\"star\":3},{\"username\":\"130****9879\",\"comment\":\"感觉很棒，服务员态度非常好\",\"star\":5},{\"username\":\"186****7570\",\"comment\":\"要是能多给开点发票就好了，哈哈啊\",\"star\":4}]}";
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(s, new TypeReference<CommentListDto>() {});
+    @RequestMapping(value = "/detail/comment/{currentPage}/{businessId}", method = RequestMethod.GET)
+    public CommentListDto commentDetail(@PathVariable("businessId") Long businessId,Page page) {
+          return commentService.getListByBusinessId(businessId,page);
     }
 
     /**
      * 订单列表
      */
     @RequestMapping(value = "/orderlist/{username}", method = RequestMethod.GET)
-    public List<OrdersDto> orderlist() throws JsonParseException, JsonMappingException, IOException {
-        String s = "[{\"id\":1494060890936,\"img\":\"http://images2015.cnblogs.com/blog/138012/201610/138012-20161016201638030-473660627.png\",\"title\":\"汉堡大王\",\"count\":3,\"price\":\"167\",\"commentState\":0},{\"id\":1494060890936,\"img\":\"http://images2015.cnblogs.com/blog/138012/201610/138012-20161016201708124-1116595594.png\",\"title\":\"麻辣香锅\",\"count\":1,\"price\":\"188\",\"commentState\":0},{\"id\":1494060890936,\"img\":\"http://images2015.cnblogs.com/blog/138012/201610/138012-20161016201645858-1342445625.png\",\"title\":\"好吃自出餐\",\"count\":2,\"price\":\"110\",\"commentState\":2}]";
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(s, new TypeReference<List<OrdersDto>>() {});
+    public List<OrdersDto> orderlist(@PathVariable("username")  Long username)  {
+        Long memberId = memberService.getIdByPhone(username);
+        List<OrdersDto> ordersDtoList = ordersService.getListByMemberId(memberId);
+        return ordersDtoList;
     }
 
     /**
      * 提交评论
      */
     @RequestMapping(value = "/submitComment", method = RequestMethod.POST)
-    public Map<String, Object> submitComment() {
-        Map<String, Object> result = new HashMap<>();
-        result.put("errno", 0);
-        result.put("msg", "ok");
-        return result;
+    public ApiCodeDto submitComment(CommentForSubmitDto commentForSubmitDto) {
+       ApiCodeDto result;
+       Long phone = memberService.getPhone(commentForSubmitDto.getToken());
+
+        //校验登录信息：token、手机号
+       if(phone != null&&phone.equals(commentForSubmitDto.getUsername())){
+           Long memberId = memberService.getIdByPhone(phone);
+           OrdersDto ordersDto = ordersService.getById(commentForSubmitDto.getId());
+
+           //根据提交上来的订单ID获取对应的会员ID，校验与当前登录的会员是否一致
+           if(ordersDto.getMemberId().equals(memberId)){
+               commentService.add(commentForSubmitDto);
+               result = new ApiCodeDto(ApiCodeEnum.SUCCESS);
+           }else{
+               result = new ApiCodeDto(ApiCodeEnum.NO_AUTH);
+           }
+       }else{
+              result = new ApiCodeDto(ApiCodeEnum.NOT_LOGGED);
+       }
+       return result;
     }
 }

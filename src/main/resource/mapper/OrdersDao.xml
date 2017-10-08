@@ -5,6 +5,10 @@
 <mapper namespace="com.dianping.dao.OrdersDao">
     <resultMap type="Orders" id="OrdersResultMap">
         <id column="id" property="id" />
+        <id column="business_id" property="businessId" />
+        <id column="member_id" property="memberId" />
+        <id column="num" property="num" />
+        <id column="create_time" property="createTime" />
         <result column="comment_state" property="commentState" />
         <result column="price" property="price" />
         <association property="business" javaType="Business">
@@ -18,8 +22,8 @@
     </resultMap>
 
     <insert id="insert">
-        insert into orders(business_id,member_id,num,comment_state,price)
-        values(#{businessId},#{memberId},#{num},#{commentState},#{price})
+        insert into orders(business_id,member_id,num,comment_state,price,create_time)
+        values(#{businessId},#{memberId},#{num},#{commentState},#{price},#{createTime})
     </insert>
 
     <select id="selectById" resultType="Orders">
@@ -38,7 +42,7 @@
     </update>
 
     <select id="select" resultMap="OrdersResultMap">
-        select o.id,o.comment_state,o.price,b.img_file_name,b.title,b.number
+        select o.id,o.comment_state,o.price,b.img_file_name,b.title,b.number,o.business_id,member_id
         from orders o,business b where o.business_id=b.id
         <if test="memberId != null">
             and o.member_id = #{memberId}

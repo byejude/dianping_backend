@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by byebyejude on 2017/10/2.
  */
-@Service
+
 public interface MemberService {
     boolean exists(Long phone);
 

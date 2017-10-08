@@ -118,23 +118,16 @@ public class BusinessServiceImpl implements BusinessService{
         Business businessTemp = new Business();
         BeanUtils.copyProperties(businessDto,businessTemp);
         String keyWord = businessDto.getKeyword();
-        System.out.println( "businessDto.getKeyword()————————————》"+keyWord);
         if(!CommonUtil.isEmpty(keyWord)){
-            System.out.println( "businessDto.getKeyword()————————————》"+keyWord);
             businessTemp.setTitle(keyWord);
            businessTemp.setSubtitle(keyWord);
            businessTemp.setDesc(keyWord);
         }
-        System.out.println( "businessDto.getKeyword()11111111111————————————》"+businessTemp.getTitle());
-        System.out.println( "businessDto.getKeyword()22222222222————————————》"+businessTemp.getSubtitle());
-        System.out.println( "businessDto.getKeyword()—33333333333———————————》"+businessTemp.getDesc());
-        System.out.println("businessDto.getCategory()_____>"+businessDto.getCategory());
         if(businessDto.getCategory()!=null&&businessDto.getCategory().equals(CategoryConst.ALL)){
             businessTemp.setCategory(null);
         }
 
         int currentPageFromFront = businessDto.getPage().getCurrentPage();
-        System.out.println("businessDto.getPage().getCurrentPage()_____>"+businessDto.getPage().getCurrentPage());
         businessTemp.getPage().setCurrentPage(currentPageFromFront+1);
 
         Page page = businessTemp.getPage();
@@ -144,7 +137,7 @@ public class BusinessServiceImpl implements BusinessService{
 
         for (Business bs:list
              ) {
-            System.out.print("!!!!!!!_________________!!!"+bs.getTitle());
+
             BusinessDto bsd = new BusinessDto();
             BeanUtils.copyProperties(bs,bsd);
             bsd.setImg(businessImageUrl+bs.getImgFileName());
@@ -155,7 +148,7 @@ public class BusinessServiceImpl implements BusinessService{
             result.getData().add(bsd);
 
         }
-        System.out.println("3333333333333333333333333333333333333333");
+
         return result;
     }
 

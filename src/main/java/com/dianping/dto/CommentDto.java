@@ -1,13 +1,17 @@
 package com.dianping.dto;
 
+import com.dianping.bean.Comment;
+
 /**
  * Created by byebyejude on 2017/9/20.
  */
-public class CommentDto {
+public class CommentDto extends Comment {
 
+    /**
+     * 隐藏中间4位的手机号
+     */
     private String username;
-    private String comment;
-    private Integer star;
+
 
     public String getUsername() {
         return username;
@@ -17,19 +21,5 @@ public class CommentDto {
         this.username = username;
     }
 
-    public String getComment() {
-        return comment;
-    }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Integer getStar() {
-        return star;
-    }
-
-    public void setStar(Integer star) {
-        this.star = star;
-    }
 }

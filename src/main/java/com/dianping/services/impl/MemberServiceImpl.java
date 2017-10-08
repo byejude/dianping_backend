@@ -10,12 +10,15 @@ import com.dianping.utils.MD5Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * Created by byebyejude on 2017/10/2.
  */
+@Service
 public class MemberServiceImpl implements MemberService {
 
     @Autowired
