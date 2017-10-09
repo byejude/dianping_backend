@@ -10,4 +10,5 @@ public interface CommentDao {
 
     List<Comment> selectByPage(Comment comment);
 
+    List<Comment> selectByLikeComment(Comment comment);
 }

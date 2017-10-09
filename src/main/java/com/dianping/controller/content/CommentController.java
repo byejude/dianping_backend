@@ -28,7 +28,7 @@ private CommentService commentService;
 
     @RequestMapping("/search")
     public String search(Model model,CommentDto commentDto){
-        model.addAttribute("list",commentService.selectByPage(commentDto));
+        model.addAttribute("list",commentService.selectByLikeComment(commentDto));
         model.addAttribute("searchParam", commentDto);
         return "/content/commentList";
     }

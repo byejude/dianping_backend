@@ -47,5 +47,15 @@
         <if test="memberId != null">
             and o.member_id = #{memberId}
         </if>
+
+    </select>
+
+    <select id="selectByPhone" resultMap="OrdersResultMap">
+        select o.id,o.comment_state,o.price,o.business_id,member_id,m.phone
+        from orders o,business b,member m where o.business_id=b.id
+        <if test="member.phone != null">
+            and m.phone = #{member.phone}
+        </if>
+
     </select>
 </mapper>

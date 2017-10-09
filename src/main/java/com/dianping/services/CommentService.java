@@ -18,4 +18,6 @@ public interface CommentService {
     CommentListDto getListByBusinessId(Long businessId,Page page);
 
     List<CommentDto> selectByPage(CommentDto commentDto);
+
+    List<CommentDto> selectByLikeComment(CommentDto commentDto);
 }

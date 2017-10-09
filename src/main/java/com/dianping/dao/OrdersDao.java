@@ -12,4 +12,6 @@ public interface OrdersDao {
     int update(Orders orders);
 
     List<Orders> select(Orders orders);
+
+    List<Orders> selectByPhone(Orders orders);
 }

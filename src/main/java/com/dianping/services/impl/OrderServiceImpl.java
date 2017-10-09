@@ -109,13 +109,13 @@ public class OrderServiceImpl implements OrdersService{
         if(memberList != null&&memberList.size() == 1){
             orders.setMember(member);
         }
-        List<Orders>ordersList = ordersDao.select(orders);
+        List<Orders>ordersList = ordersDao.selectByPhone(orders);
         for (Orders orderTemp:ordersList
                 ) {
               OrderForBackDto orderForBackDtoTemp = new OrderForBackDto();
               orderForBackDtoTemp.setPrice(orderTemp.getPrice());
               orderForBackDtoTemp.setId(orderTemp.getId());
-              orderForBackDtoTemp.setUsername(orderForBackDto.getUsername());
+              orderForBackDtoTemp.setUsername(orderTemp.getMember().getPhone());
               result.add(orderForBackDtoTemp);
         }
         return result;

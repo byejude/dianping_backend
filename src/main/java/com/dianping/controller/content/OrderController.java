@@ -30,7 +30,7 @@ public class OrderController {
     @RequestMapping("/search")
     public String search(Model model,OrderForBackDto orderForBackDto){
         System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-        model.addAttribute("list",ordersService.searchByPhone( orderForBackDto));
+        model.addAttribute("list",ordersService.searchByPhone(orderForBackDto));
         model.addAttribute("searchParam", orderForBackDto);
         return "/content/orderList";
     }

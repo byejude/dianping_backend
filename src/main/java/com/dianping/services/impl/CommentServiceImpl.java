@@ -95,10 +95,35 @@ public class CommentServiceImpl implements CommentService {
             CommentDto commentDtoTemp = new CommentDto();
             commentDtoTemp.setUsername(commentTemp.getOrders().getMember().getPhone().toString());
             commentDtoTemp.setStar(commentTemp.getStar());
-            commentDtoTemp.setId(commentDtoTemp.getOrdersId());
+            commentDtoTemp.setOrdersId(commentTemp.getOrdersId());
+            commentDtoTemp.setComment(commentTemp.getComment());
             result.add(commentDtoTemp);
         }
         return result;
 
     }
+
+    @Override
+    public List<CommentDto> selectByLikeComment(CommentDto commentDto) {
+        List<CommentDto> result = new ArrayList<>();
+        Comment comment = new Comment();
+        Orders orders = new Orders();
+        Business business = new Business();
+        comment.setOrders(orders);
+        orders.setBusiness(business);
+        comment.setPage(new Page());
+        comment.setComment(commentDto.getComment());
+        List<Comment> commentList = commentDao.selectByLikeComment(comment);
+        for (Comment commentTemp:commentList ) {
+            CommentDto commentDtoTemp = new CommentDto();
+            commentDtoTemp.setUsername(commentTemp.getOrders().getMember().getPhone().toString());
+            commentDtoTemp.setStar(commentTemp.getStar());
+            commentDtoTemp.setOrdersId(commentTemp.getOrdersId());
+            commentDtoTemp.setComment(commentTemp.getComment());
+            result.add(commentDtoTemp);
+        }
+        return result;
+    }
+
+
 }
