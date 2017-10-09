@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dianping.dao.GroupMenuDao">
+
+    <insert id="insertBatch">
+        insert into sys_group_menu(group_id,menu_id) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.groupId},#{item.menuId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteByGroupId">
+        delete from sys_group_menu where group_id=#{_parameter}
+    </delete>
+
+</mapper>
