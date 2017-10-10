@@ -79,7 +79,6 @@ public class UserServiceImpl implements UserService {
        UserDto userDto = new UserDto();
        User user = userdao.selectById(id);
        BeanUtils.copyProperties(user,userDto);
-
         return userDto;
     }
 }

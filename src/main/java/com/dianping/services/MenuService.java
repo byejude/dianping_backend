@@ -2,6 +2,7 @@ package com.dianping.services;
 
 import com.dianping.dto.MenuDto;
 import com.dianping.dto.MenuForMoveDto;
+import com.dianping.dto.MenuForZtreeDto;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface MenuService {
      * @return 菜单树列表
      */
   //
-    //  List<MenuForZtreeDto> getZtreeList();
+     List<MenuForZtreeDto> getZtreeList();
 
     /**
      * 根据条件获取菜单列表

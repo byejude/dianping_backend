@@ -10,7 +10,7 @@ import java.util.List;
 public class GroupDto extends Group {
 
     private Integer pId;
-    private List<Long> menuList;
+    private List<Long> menuIdList;
     private List<Long> actionIdList;
     private List<MenuDto> menuDtoList;
     private List<ActionDto> actionDtoList;
@@ -23,12 +23,12 @@ public class GroupDto extends Group {
         this.pId = pId;
     }
 
-    public List<Long> getMenuList() {
-        return menuList;
+    public List<Long> getMenuIdList() {
+        return menuIdList;
     }
 
-    public void setMenuList(List<Long> menuList) {
-        this.menuList = menuList;
+    public void setMenuIdList(List<Long> menuIdList) {
+        this.menuIdList = menuIdList;
     }
 
     public List<Long> getActionIdList() {
