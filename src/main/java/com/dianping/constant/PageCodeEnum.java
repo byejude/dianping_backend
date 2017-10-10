@@ -9,7 +9,8 @@ public enum PageCodeEnum {
     MODIFY_SUCCESS(1100,"修改成功！"),
     MODIFY_FAIL(1101,"修改失败！"),
     REMOVE_SUCCESS(1200,"删除成功！"),
-    REMOVE_FAIL(1201,"删除失败！"),;
+    REMOVE_FAIL(1201,"删除失败！"),
+    SESSION_TIMEOUT(1302,"session超时，请重新登录！");
 
     private Integer code;
     private String  msg;

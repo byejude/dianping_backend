@@ -1,5 +1,7 @@
 package com.dianping.bean;
 
+import java.util.List;
+
 /**
  * Created by byebyejude on 2017/10/9.
  */
@@ -10,6 +12,8 @@ public class Menu {
     private String url;
     private Long parentId;
     private Integer orderNum;
+
+    private List<Action> actionList;
 
     public Long getId() {
         return id;
@@ -49,5 +53,13 @@ public class Menu {
 
     public void setOrderNum(Integer orderNum) {
         this.orderNum = orderNum;
+    }
+
+    public List<Action> getActionList() {
+        return actionList;
+    }
+
+    public void setActionList(List<Action> actionList) {
+        this.actionList = actionList;
     }
 }

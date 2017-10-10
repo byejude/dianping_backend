@@ -1,5 +1,6 @@
 package com.dianping.services.impl;
 
+import com.dianping.bean.Action;
 import com.dianping.bean.Menu;
 import com.dianping.dao.ActionDao;
 import com.dianping.dao.MenuDao;
@@ -70,13 +71,73 @@ public class MenuServiceAImpl implements MenuService {
         return menuDao.update(menu) == 1;
     }
 
+    @Transactional
     @Override
     public boolean order(MenuForMoveDto menuForMoveDto) {
-        return false;
+        if(menuForMoveDto.getMoveType().equals(MenuForMoveDto.MOVE_TYPE_INNER)){
+           menuDao.updateOrderNumByParentId(menuForMoveDto.getTargetNodeId());
+
+            Menu menuForInner = new Menu();
+            menuForInner.setOrderNum(1);
+            menuForInner.setParentId(menuForMoveDto.getTargetNodeId());
+            menuForInner.setId(menuForMoveDto.getDropNodeId());
+            menuDao.update(menuForInner);
+        }else {
+            Menu menuAim = menuDao.selectById(menuForMoveDto.getTargetNodeId());
+            if(menuAim != null){
+                if(menuForMoveDto.getMoveType().equals(MenuForMoveDto.MOVE_TYPE_PREV)){
+                    menuDao.updateOrderNumByIdInclude(menuForMoveDto.getTargetNodeId());
+
+                    Menu menuForPrev = new Menu();
+                    menuForPrev.setOrderNum(menuAim.getOrderNum());
+                    menuForPrev.setParentId(menuAim.getParentId());
+                    menuForPrev.setId(menuForMoveDto.getDropNodeId());
+                    menuDao.update(menuForPrev);
+                }else if(menuForMoveDto.getMoveType().equals(MenuForMoveDto.MOVE_TYPE_NEXT)){
+                    menuDao.updateOrderNumByParentId(menuForMoveDto.getTargetNodeId());
+
+                    Menu menuForLast = new Menu();
+                    menuForLast.setOrderNum(menuAim.getOrderNum()+1);
+                    menuForLast.setId(menuForMoveDto.getDropNodeId());
+                    menuForLast.setParentId(menuAim.getParentId());
+                    menuDao.update(menuForLast);
+                }else {
+                    return false;
+                }
+            }else {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public List<MenuForZtreeDto> getZtreeList() {
-        return null;
+        List<MenuForZtreeDto> result = new ArrayList<>();
+        List<Menu> menuList = menuDao.selectWithAction(new Menu());
+
+        for (Menu menuTemp:menuList
+             ) {
+            MenuForZtreeDto menuForZtreeDto4Menu = new MenuForZtreeDto();
+            BeanUtils.copyProperties(menuTemp,menuForZtreeDto4Menu);
+            menuForZtreeDto4Menu.setOpen(true);
+            menuForZtreeDto4Menu.setComboId(MenuForZtreeDto.PREFIX_MENU+menuTemp.getId());
+            menuForZtreeDto4Menu.setComboParentId(MenuForZtreeDto.PREFIX_MENU+menuTemp.getParentId());
+            result.add(menuForZtreeDto4Menu);
+
+            for (Action actionTemp:menuTemp.getActionList()
+                 ) {
+                MenuForZtreeDto menuForZtreeDto4Action = new MenuForZtreeDto();
+                menuForZtreeDto4Action.setName(actionTemp.getName());
+                menuForZtreeDto4Action.setComboParentId(MenuForZtreeDto.PREFIX_ACTION+actionTemp.getMenuId());
+                menuForZtreeDto4Action.setComboId(MenuForZtreeDto.PREFIX_ACTION+actionTemp.getId());
+                menuForZtreeDto4Action.setParentId(actionTemp.getMenuId());
+                menuForZtreeDto4Action.setId(actionTemp.getId());
+                result.add(menuForZtreeDto4Action);
+            }
+        }
+
+
+        return result;
     }
 }

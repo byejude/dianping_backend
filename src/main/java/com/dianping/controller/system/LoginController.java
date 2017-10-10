@@ -28,7 +28,7 @@ public class LoginController {
      */
     @RequestMapping("/sessionTimeout")
     public String sessionTimeout(Model model) {
-
+        model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.SESSION_TIMEOUT);
         return "/system/error";
     }
 

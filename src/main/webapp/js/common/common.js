@@ -18,6 +18,7 @@ common.ajax = function(param) {
 	} , param , {
 		complete : function(response) {
 			var url = response.getResponseHeader("url");
+			//针对ajax超时进行跳转
 			if(url) {
 				location.href = url;
 			} else {
