@@ -21,7 +21,7 @@ public class AdController {
     @Autowired
     private AdService adService;
 
-    @RequestMapping
+    @RequestMapping()
     public String adInit(Model model) {
         AdDto adDto = new AdDto();
         model.addAttribute("list",adService.searchByPage(adDto));

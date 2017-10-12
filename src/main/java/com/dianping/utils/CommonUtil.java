@@ -1,5 +1,10 @@
 package com.dianping.utils;
 
+import com.dianping.constant.SessionKeyConst;
+import com.dianping.dto.ActionDto;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.UUID;
 
 public class CommonUtil {
@@ -21,6 +26,30 @@ public class CommonUtil {
 
     public static String getUUID(){
         return UUID.randomUUID().toString().replace("-","");
+    }
+
+    public static boolean contains(HttpSession session,String url,String method){
+        Object obj = session.getAttribute(SessionKeyConst.ACTION_INFO);
+        if(obj != null){
+            @SuppressWarnings("unchecked")
+            List<ActionDto> actionDtos = (List<ActionDto>) obj;
+            for (ActionDto actionDto:actionDtos
+                 ) {
+                if (!(isEmpty(actionDto.getMethod())||actionDto.getMethod().equals(method)))
+                {
+                    continue;
+                }
+
+                if(!url.matches(actionDto.getUrl()))
+                {
+                    continue;
+                }
+
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
 }
