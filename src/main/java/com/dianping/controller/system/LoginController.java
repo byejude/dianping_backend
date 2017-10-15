@@ -52,7 +52,8 @@ public class LoginController {
      */
     @RequestMapping("/noAuth")
     public String noAuth(Model model) {
-
+        model.addAttribute(PageCodeEnum.KEY, PageCodeEnum.NO_AUTH);
+        session.invalidate();
         return "/system/error";
     }
 
@@ -63,7 +64,7 @@ public class LoginController {
     public String validate(UserDto userDto, RedirectAttributes attr) {
                if(userService.validate(userDto)){
                    session.setAttribute(SessionKeyConst.USER_INFO,userDto);
-                   GroupDto groupDto = groupService.getByIdWithMenuAction(userDto.getId());
+                   GroupDto groupDto = groupService.getByIdWithMenuAction(userDto.getGroupId());
                    session.setAttribute(SessionKeyConst.MENU_INFO,groupDto.getMenuDtoList());
                    session.setAttribute(SessionKeyConst.ACTION_INFO,groupDto.getActionDtoList());
                    return "redirect:/index";

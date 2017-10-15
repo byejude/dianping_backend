@@ -14,14 +14,15 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
       if(CommonUtil.contains(request.getSession(),request.getServletPath(),request.getMethod())){
+          System.out.print("##################################################");
        return true;
       }
-//        if (request.getHeader("x-requested-with") != null) {
-//           String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-//            response.setHeader("url", basePath + "/login/noAuth");
-//        } else {
-//           request.getRequestDispatcher("/login/noAuth").forward(request, response);
-//        }
+        if (request.getHeader("x-requested-with") != null) {
+           String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+            response.setHeader("url", basePath + "/login/noAuth");
+        } else {
+           request.getRequestDispatcher("/login/noAuth").forward(request, response);
+        }
      return false;
     }
 

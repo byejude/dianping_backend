@@ -35,8 +35,12 @@ public class CommonUtil {
             List<ActionDto> actionDtos = (List<ActionDto>) obj;
             for (ActionDto actionDto:actionDtos
                  ) {
-                if (!(isEmpty(actionDto.getMethod())||actionDto.getMethod().equals(method)))
-                {
+//                if (!(isEmpty(actionDto.getMethod())||actionDto.getMethod().equals(method)))
+//                {
+//                    continue;
+//                }
+
+                if(!isEmpty(actionDto.getMethod()) && !actionDto.getMethod().equals(method)) {
                     continue;
                 }
 

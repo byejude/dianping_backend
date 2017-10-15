@@ -17,4 +17,6 @@
         delete from sys_group_action where group_id=#{_parameter}
     </delete>
 
+
+
 </mapper>

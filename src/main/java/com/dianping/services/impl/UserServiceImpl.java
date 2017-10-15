@@ -53,11 +53,11 @@ public class UserServiceImpl implements UserService {
     public boolean modify(UserDto userDto) {
        User user = new User();
        BeanUtils.copyProperties(userDto,user);
-        if (!CommonUtil.isEmpty(userDto.getPassword())){
-            user.setPassword(MD5Util.getMD5(userDto.getPassword()));
+   //     if (!CommonUtil.isEmpty(userDto.getPassword())){
+     //       user.setPassword(MD5Util.getMD5(userDto.getPassword()));
             return userdao.update(user) == 1;
-        }
-        return false;
+       // }
+        //return false;
     }
 
     @Override

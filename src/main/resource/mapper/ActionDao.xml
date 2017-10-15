@@ -44,4 +44,8 @@
     <select id="selectById" resultType="Action">
         select id,name,url,menu_id,method from sys_action where id=#{_parameter}
     </select>
+
+    <select id="selectByMenuId" resultType="Action">
+        select id,name,url,menu_id,method from sys_action where menu_id=#{_parameter}
+    </select>
 </mapper>

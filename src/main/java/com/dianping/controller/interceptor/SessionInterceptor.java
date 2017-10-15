@@ -16,13 +16,13 @@ public class SessionInterceptor implements HandlerInterceptor {
         if(request.getSession().getAttribute(SessionKeyConst.USER_INFO) != null){
             return true;
         }
-        // 针对ajax请求处理
-//        if (request.getHeader("x-requested-with") != null) {
-//            String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-//            response.setHeader("url", basePath + "/login/sessionTimeout");
-//        } else {
-//            request.getRequestDispatcher("/login/sessionTimeout").forward(request, response);
-//        }
+       //  针对ajax请求处理
+        if (request.getHeader("x-requested-with") != null) {
+            String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+            response.setHeader("url", basePath + "/login/sessionTimeout");
+        } else {
+            request.getRequestDispatcher("/login/sessionTimeout").forward(request, response);
+        }
         return false;
 
     }

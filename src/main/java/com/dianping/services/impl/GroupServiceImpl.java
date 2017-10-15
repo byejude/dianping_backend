@@ -1,6 +1,7 @@
 package com.dianping.services.impl;
 
 import com.dianping.bean.*;
+import com.dianping.dao.ActionDao;
 import com.dianping.dao.GroupActionDao;
 import com.dianping.dao.GroupDao;
 import com.dianping.dao.GroupMenuDao;
@@ -21,6 +22,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Autowired
     private GroupDao groupDao;
+
+    @Autowired
+    private ActionDao actionDao;
 
     @Autowired
     private GroupActionDao groupActionDao;
@@ -102,33 +106,50 @@ public class GroupServiceImpl implements GroupService {
           groupMenuDao.deleteByGroupId(groupDto.getId());
           groupActionDao.deleteByGroupId(groupDto.getId());
 
-        // 保存为用户组分配的菜单
+        // //保存为用户组分配的菜单
         if(groupDto.getMenuIdList() != null &&groupDto.getMenuIdList().size()>0){
             List<GroupMenu> newGroupMenuList = new ArrayList<>();
+            List<GroupAction> newGroupActionList = new ArrayList<>();
             for(Long menuId:groupDto.getMenuIdList()){
                 if (menuId != null){
                     GroupMenu groupMenu = new GroupMenu();
-                    groupMenu.setGroupId(menuId);
                     groupMenu.setGroupId(groupDto.getId());
+                    groupMenu.setMenuId(menuId);
                     newGroupMenuList.add(groupMenu);
+
+                    List<Action> actionList = actionDao.selectByMenuId(menuId);
+                    if (actionList.size()>0) {
+                        for (Action actionTemp : actionList
+                                ) {
+                            if (actionTemp.getId() != null) {
+                                GroupAction groupAction = new GroupAction();
+                                groupAction.setGroupId(groupDto.getId());
+                                groupAction.setActionId(actionTemp.getId());
+                                newGroupActionList.add(groupAction);
+                            }
+                        }
+                        groupActionDao.insertBatch(newGroupActionList);
+                    }else {
+                        continue;
+                    }
                 }
             }
             groupMenuDao.insertBatch(newGroupMenuList);
         }
 
         // 保存为用户组分配的动作
-        if(groupDto.getActionIdList() != null &&groupDto.getActionIdList().size()>0){
-            List<GroupAction> newGroupActionList = new ArrayList<>();
-            for(Long actionId:groupDto.getActionIdList()){
-                if (actionId != null){
-                    GroupAction groupAction = new GroupAction();
-                    groupAction.setGroupId(actionId);
-                    groupAction.setGroupId(groupDto.getId());
-                    newGroupActionList.add(groupAction);
-                }
-            }
-            groupActionDao.insertBatch(newGroupActionList);
-        }
+//        if(groupDto.getActionIdList() != null &&groupDto.getActionIdList().size()>0){
+//            List<GroupAction> newGroupActionList = new ArrayList<>();
+//            for(Long actionId:groupDto.getActionIdList()){
+//                if (actionId != null){
+//                    GroupAction groupAction = new GroupAction();
+//                    groupAction.setGroupId(groupDto.getId());
+//                    groupAction.setActionId(actionId);
+//                    newGroupActionList.add(groupAction);
+//                }
+//            }
+//            groupActionDao.insertBatch(newGroupActionList);
+//        }
         return true;
     }
 }

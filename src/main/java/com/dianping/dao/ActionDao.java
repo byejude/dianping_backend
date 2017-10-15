@@ -2,6 +2,8 @@ package com.dianping.dao;
 
 import com.dianping.bean.Action;
 
+import java.util.List;
+
 /**
  * Created by byebyejude on 2017/10/9.
  */
@@ -41,4 +43,11 @@ public interface ActionDao {
      * @return 动作实体
      */
     Action selectById(Long id);
+
+    /**
+     * 根据菜单主键获取动作实体
+     * @param menuId 主键
+     * @return 动作实体
+     */
+    List<Action>  selectByMenuId(Long menuId);
 }
